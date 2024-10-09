@@ -33,5 +33,13 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: my-library
-        path: keychain_jni/jni/libs/**/libkeychain.so  # 上传所有子目录中的 libkeychain.so
+        path: |
+          keychain_jni/jni/libs/arm64-v8a/libkeychain.so
+          keychain_jni/jni/libs/armeabi-v7a/libkeychain.so
+          keychain_jni/jni/libs/x86/libkeychain.so
+          keychain_jni/jni/libs/x86_64/libkeychain.so
+
+    - name: Check for .so files
+      run: |
+        ls -l keychain_jni/jni/libs/**/libkeychain.so
 
