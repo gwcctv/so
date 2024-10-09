@@ -25,12 +25,8 @@ jobs:
         cd keychain_jni/jni  # 进入文件所在路径
         ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=Android.mk NDK_DEBUG=0
 
-    - name: Move .so file to root
-      run: |
-        mv libs/armeabi-v7a/libkeychain.so .  # 移动 .so 文件到根目录
-
     - name: Upload .so file
       uses: actions/upload-artifact@v3
       with:
         name: my-library
-        path: libkeychain.so
+        path: keychain_jni/jni/libkeychain.so  # 指定 .so 文件的路径
