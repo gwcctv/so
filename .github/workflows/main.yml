@@ -30,7 +30,7 @@ jobs:
         mv libs/armeabi-v7a/libkeychain.so .  # 移动 .so 文件到根目录
 
     - name: Upload .so file
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3  # 更新为 v3
       with:
         name: my-library
         path: libkeychain.so
