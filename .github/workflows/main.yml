@@ -1,9 +1,7 @@
 name: Build .so File
 
 on:
-  push:
-    branches:
-      - main  # 触发构建的分支 
+  workflow_dispatch:  # 允许手动触发
 
 jobs:
   build:
