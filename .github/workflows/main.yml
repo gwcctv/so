@@ -24,6 +24,10 @@ jobs:
         export PATH=$HOME/ndk/android-ndk-r21d:$PATH  # 确保 NDK 在 PATH 中
         cd keychain_jni/jni  # 进入文件所在路径
         ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=Android.mk NDK_DEBUG=0
+    - name: List generated files
+      run: |
+        cd keychain_jni/jni
+        ls -R libs  # 列出 libs 目录下的所有文件
 
     - name: Upload .so file
       uses: actions/upload-artifact@v3
