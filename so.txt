@@ -1,0 +1,36 @@
+name: Build .so File
+
+on:
+  push:
+    branches:
+      - main  # 触发构建的分支 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Android NDK
+      run: |
+        wget https://dl.google.com/android/repository/android-ndk-r21d-linux-x86_64.zip
+        unzip android-ndk-r21d-linux-x86_64.zip -d $HOME/ndk
+        echo "$HOME/ndk/android-ndk-r21d" >> $GITHUB_PATH  # 添加 NDK 路径到环境变量
+
+    - name: Build .so file
+      run: |
+        export PATH=$HOME/ndk/android-ndk-r21d:$PATH  # 确保 NDK 在 PATH 中
+        cd keychain_jni/jni  # 进入文件所在路径
+        ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=Android.mk NDK_DEBUG=0
+    - name: List generated files
+      run: |
+        cd keychain_jni/jni
+        ls -R libs  # 列出 libs 目录下的所有文件
+
+    - name: Upload .so files
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-library
+        path: keychain_jni/jni/libs/**/libkeychain.so  # 上传所有子目录中的 libkeychain.so
