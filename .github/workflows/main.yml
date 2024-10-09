@@ -29,4 +29,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: my-library
-        path: keychain_jni/jni/libkeychain.so  # 指定 .so 文件的路径
+        path: keychain_jni/jni/libs/**/*libkeychain.so  # 上传所有子目录中的 libkeychain.so
